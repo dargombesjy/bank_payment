@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: fibankpayment
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: Destination_for_Dev_80
+          url: https://my438994.s4hana.cloud.sap/
+          authenticationType: reentranceTicket # SAML support for vscode
+        app:
+          name: fibankpayment
+          description: FI Bank Payment Form
+          package: ZABAP_F
+          transport: H5YK901378
+        exclude:
+          - /test/
+          - /localService/

@@ -1,0 +1,137 @@
+{
+  "_version": "1.86.0",
+  "sap.app": {
+    "id": "fibankpayment",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:fpm",
+      "version": "1.32.0",
+      "toolsId": "c38f6808-9bd2-4a7d-94e0-df251cc28678"
+    },
+    "dataSources": {
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zsgi_fi_bank_payment/srvd/sap/zsgi_fi_bank_payment/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ZSGI_FI_SEM005-display": {
+          "semanticObject": "ZSGI_FI_SEM005",
+          "action": "display",
+          "title": "{{ZSGI_FI_SEM005-display.flpTitle}}",
+          "subTitle": "{{ZSGI_FI_SEM005-display.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.10",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "fibankpayment.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "name": "ZSGI_FI_C_BANK_PAYMENTMain",
+          "pattern": ":?query:",
+          "target": "ZSGI_FI_C_BANK_PAYMENTMain"
+        }
+      ],
+      "targets": {
+        "ZSGI_FI_C_BANK_PAYMENTMain": {
+          "type": "Component",
+          "id": "ZSGI_FI_C_BANK_PAYMENTMain",
+          "name": "sap.fe.core.fpm",
+          "options": {
+            "settings": {
+              "navigation": {},
+              "contextPath": "/ZSGI_FI_C_BANK_PAYMENT",
+              "viewName": "fibankpayment.ext.view.Main"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}

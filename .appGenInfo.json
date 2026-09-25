@@ -1,0 +1,29 @@
+{
+  "generationParameters": {
+    "generationDate": "Fri Sep 25 2026 04:08:28 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "SAP System (ABAP On-Premise)",
+    "metadataFilename": "",
+    "serviceUrl": "https://my438994.s4hana.cloud.sap/sap/opu/odata4/sap/zsgi_fi_bank_payment/srvd/sap/zsgi_fi_bank_payment/0001/",
+    "appName": "fi_bank_payment",
+    "appTitle": "Bank Payment",
+    "appDescription": "Bank Payment",
+    "appNamespace": "",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.148.10",
+    "enableEslint": true,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.32.0",
+    "template": "Custom Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "ZSGI_FI_C_BANK_PAYMENT"
+      }
+    ],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```",
+    "valueHelpDownloaded": true
+  }
+}
