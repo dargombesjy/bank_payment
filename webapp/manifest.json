@@ -1,7 +1,7 @@
 {
   "_version": "1.86.0",
   "sap.app": {
-    "id": "fibankpayment",
+    "id": "zfibankpayment",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -85,7 +85,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "fibankpayment.i18n.i18n"
+          "bundleName": "zfibankpayment.i18n.i18n"
         }
       },
       "": {
@@ -130,7 +130,7 @@
             "settings": {
               "navigation": {},
               "contextPath": "/ZSGI_FI_C_BANK_PAYMENT",
-              "viewName": "fibankpayment.ext.view.Main"
+              "viewName": "zfibankpayment.ext.view.Main"
             }
           }
         }

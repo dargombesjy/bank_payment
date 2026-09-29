@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="fibankpayment.ext.view.Main" xmlns:macrosTable="sap.fe.macros.table">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="zfibankpayment.ext.view.Main" xmlns:macrosTable="sap.fe.macros.table">
     <macros:Page id="Page" title="Bank Payment" showFooter="true">
         <macros:items>
             <macros:FilterBar id="FilterBar" metaPath="/ZSGI_FI_C_BANK_PAYMENT/@com.sap.vocabularies.UI.v1.SelectionFields#filterBarMacro1"/>

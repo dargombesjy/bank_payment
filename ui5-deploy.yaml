@@ -2,7 +2,7 @@
 
 specVersion: "4.0"
 metadata:
-  name: fibankpayment
+  name: zfibankpayment
 type: application
 builder:
   resources:
@@ -18,7 +18,7 @@ builder:
           url: https://my438994.s4hana.cloud.sap/
           authenticationType: reentranceTicket # SAML support for vscode
         app:
-          name: fibankpayment
+          name: zfibankpayment
           description: FI Bank Payment Form
           package: ZABAP_F
           transport: H5YK901378

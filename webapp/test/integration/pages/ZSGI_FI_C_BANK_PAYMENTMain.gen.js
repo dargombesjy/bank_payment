@@ -24,7 +24,7 @@ sap.ui.define(['sap/fe/test/TemplatePage'], function(TemplatePage) {
     };
 
     return new TemplatePage(
-        'fibankpayment::ZSGI_FI_C_BANK_PAYMENTMain',
+        'zfibankpayment::ZSGI_FI_C_BANK_PAYMENTMain',
         CustomPageDefinitions
     );
 });
