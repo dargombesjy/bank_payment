@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+  <Dialog id="dialog1" title="Input data" contentWidth="30rem">
+    <content>
+      <f:SimpleForm id="form1" editable="true">
+        <Label id="label1" text="Date" />
+        <DatePicker
+          id="datePicker1"
+          value="{
+            path: 'popupModel>/erdat',
+            type: 'sap.ui.model.type.Date',
+            formatOptions: {
+              style: 'medium',
+              strictParsing: true
+            }
+          }"
+          change=".onDateChange" />
+        <!-- <Input id="input1" value="popupModel>/erdat"/> -->
+        <Label id="label2" text="House Bank" />
+        <Input id="input2" value="{popupModel>/houseBank}" />
+        <Label id="label3" text="House Bank Account" />
+        <Input id="input3" value="{popupModel>/houseBankAccount}" />
+      </f:SimpleForm>
+    </content>
+    <beginButton>
+      <Button id="button1" text="Process" type="Emphasized" press=".onConfirmPrint" />
+    </beginButton>
+    <endButton>
+      <Button id="button2" text="Cancel" press=".onCancelPrint" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

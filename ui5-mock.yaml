@@ -17,9 +17,8 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /sap
-            url: https://my438994.s4hana.cloud.sap
-            destination: Destination_for_Dev_80
-            authenticationType: reentranceTicket # SAML support for vscode
+            url: https://my422215-api.s4hana.cloud.sap
+            client: '100'
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -44,7 +43,6 @@ server:
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
             generateMockData: true
-            resolveExternalServiceReferences: true
         annotations: []
 builder:
   resources:

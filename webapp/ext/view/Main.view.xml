@@ -1,6 +1,12 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros"
-    xmlns:html="http://www.w3.org/1999/xhtml" controllerName="fibankpayment.ext.view.Main">
-    <Page id="Main" title="{i18n>MainTitle}">
-        <content></content>
-    </Page>
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:macros="sap.fe.macros" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="fibankpayment.ext.view.Main" xmlns:macrosTable="sap.fe.macros.table">
+    <macros:Page id="Page" title="Bank Payment" showFooter="true">
+        <macros:items>
+            <macros:FilterBar id="FilterBar" metaPath="/ZSGI_FI_C_BANK_PAYMENT/@com.sap.vocabularies.UI.v1.SelectionFields#filterBarMacro1"/>
+            <macros:Table id="Table1" metaPath="/ZSGI_FI_C_BANK_PAYMENT/@com.sap.vocabularies.UI.v1.LineItem#tableMacro" filterBar="FilterBar" header="Payment List" selectionMode="Single">
+                <macros:actions>
+                    <macrosTable:Action id="print-Main.controller" key="print-Main.controller" text="Print" press=".onPrintPdf" requiresSelection="true"/>
+                </macros:actions>
+            </macros:Table>
+        </macros:items>
+    </macros:Page>
 </mvc:View>
