@@ -20,7 +20,7 @@ builder:
         app:
           name: zfibankpayment
           description: FI Bank Payment Form
-          package: ZABAP_F
+          package: ZABAP_FI
           transport: H5YK901378
         exclude:
           - /test/
