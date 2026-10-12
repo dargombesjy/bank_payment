@@ -64,6 +64,17 @@
                         </Record>
                     </Collection>
                 </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="formMacro">
+                    <Record>
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="HouseBank"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
         </Schema>
     </edmx:DataServices>

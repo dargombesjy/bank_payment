@@ -1,5 +1,10 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
-  <Dialog id="dialog1" title="Input data" contentWidth="30rem">
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:macros="sap.fe.macros"
+  xmlns:f="sap.ui.layout.form">
+
+  <Dialog id="dialog1" title="Input data" contentWidth="30rem" draggable="true" resizable="true">
     <content>
       <f:SimpleForm id="form1" editable="true">
         <Label id="label1" text="Date" />
@@ -16,9 +21,21 @@
           change=".onDateChange" />
         <!-- <Input id="input1" value="popupModel>/erdat"/> -->
         <Label id="label2" text="House Bank" />
-        <Input id="input2" value="{popupModel>/houseBank}" />
+        <macros:Field
+          id="input1"
+          metaPath="/com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.Container/ZSGI_FI_C_BANK_PAYMENT/HouseBank"
+          value="{popupModel>/houseBank}"
+          readOnly="false" />
+        <!-- <Input id="input2" value="{popupModel>/houseBank}" showValueHelp="true"
+          valueHelpRequest=".onBankRequest" /> -->
         <Label id="label3" text="House Bank Account" />
-        <Input id="input3" value="{popupModel>/houseBankAccount}" />
+        <macros:Field
+          id="input3"
+          metaPath="/com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.Container/ZSGI_FI_C_BANK_PAYMENT/HouseBankAccount"
+          value="{popupModel>/houseBankAccount}"
+          readOnly="false" />
+        <!-- <Input id="input3" value="{popupModel>/houseBankAccount}" showValueHelp="true"
+          valueHelpRequest=".onAccountReq" /> -->
       </f:SimpleForm>
     </content>
     <beginButton>

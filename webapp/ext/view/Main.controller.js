@@ -3,9 +3,10 @@ sap.ui.define(
         "sap/fe/core/PageController",
         "sap/ui/core/Fragment",
         "sap/m/library",
-        "sap/m/MessageToast"
+        "sap/m/MessageToast",
+        "sap/ui/comp/valuehelpdialog/ValueHelpDialog"
     ],
-    function (PageController, Fragment, mLibrary, MessageToast) {
+    function (PageController, Fragment, mLibrary, MessageToast, ValueHelpDialog) {
         'use strict';
 
         return PageController.extend('zfibankpayment.ext.view.Main', {
@@ -81,16 +82,22 @@ sap.ui.define(
                 // // "this" is the extension API in custom actions; in a controller extension use this.base.getExtensionAPI()
                 // const oExtensionAPI = this.base.getExtensionAPI();
                 // const oEditFlow = this.base.getExtensionAPI().getEditFlow(); // or this.base.editFlow
+                const oModel = this.getExtensionAPI().getModel();
+                const sCount = aContexts.length;
 
                 try {
                     const aResults = await this.editFlow.invokeAction("com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.printPdf", {
                         contexts: aContexts,
+                        // model: aContexts[0].getModel(),
+                        model: oModel,
                         parameterValues: [
                             { name: "Erdat", value: sIsoDate },  //oPopupModel.getProperty("/erdat") },
                             { name: "HouseBank", value: oPopupModel.getProperty("/houseBank") },
-                            { name: "HouseBankAccount", value: oPopupModel.getProperty("/houseBankAccount") }
+                            { name: "HouseBankAccount", value: oPopupModel.getProperty("/houseBankAccount") },
+                            { name: "Zcount", value: sCount }
                         ],
                         skipParameterDialog: true
+                        // invocationGrouping: false
                     });
 
                     // aResult is an array of results (one per context)
@@ -110,19 +117,21 @@ sap.ui.define(
                         } else {
                             MessageToast.show("Print failed");
                         }
-                                     
+
                         // const oReturned = await oContext.requestObject();
                     }
 
                     oPopupModel.setData({
                         erdat: "",
                         houseBank: "",
-                        houseBankAccount: ""
+                        houseBankAccount: "",
+                        zcount: ""
                     });
 
                 } catch (oError) {
                     // Action failed or the parameter dialog was cancelled
                     MessageToast.show("Print failed: " + oError.message);
+                    console.error(oError);
                 }
             },
 
@@ -141,6 +150,7 @@ sap.ui.define(
                     oDatePicker.setValueState("None");
                 }
             },
+
         });
     }
 );

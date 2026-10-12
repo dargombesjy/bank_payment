@@ -83,6 +83,8 @@
                 <Property Name="NetDueDate" Type="Edm.Date"/>
                 <Property Name="ClearingDate" Type="Edm.Date"/>
                 <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="HouseBank" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="HouseBankAccount" Type="Edm.String" Nullable="false" MaxLength="5"/>
                 <Property Name="BankName" Type="Edm.String" Nullable="false" MaxLength="60"/>
                 <Property Name="DeptOwn" Type="Edm.String" Nullable="false" MaxLength="255"/>
                 <Property Name="Url" Type="Edm.String" Nullable="false" MaxLength="255"/>
@@ -95,7 +97,6 @@
                 <Property Name="SAP__Messages" Type="Collection(com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.SAP__Message)" Nullable="false"/>
             </EntityType>
             <ComplexType Name="ZSGI_FI_C_BANK_PAYMENTOperationControl">
-                <Property Name="printPdf" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="printQueue" Type="Edm.Boolean" Nullable="false"/>
             </ComplexType>
             <ComplexType Name="EntityControl">
@@ -111,7 +112,7 @@
                 <Property Name="longtextUrl" Type="Edm.String"/>
             </ComplexType>
             <Action Name="printPdf" EntitySetPath="_it" IsBound="true">
-                <Parameter Name="_it" Type="com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.ZSGI_FI_C_BANK_PAYMENTType" Nullable="false"/>
+                <Parameter Name="_it" Type="Collection(com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.ZSGI_FI_C_BANK_PAYMENTType)" Nullable="false"/>
                 <Parameter Name="Erdat" Type="Edm.Date" Nullable="true"/>
                 <Parameter Name="HouseBank" Type="Edm.String" Nullable="false" MaxLength="5"/>
                 <Parameter Name="HouseBankAccount" Type="Edm.String" Nullable="false" MaxLength="5"/>
@@ -127,11 +128,21 @@
             <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTType/CompanyCode">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_companycodestdvh/0001;ps='srvd-zsgi_fi_bank_payment-0001';va='com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.et-zsgi_fi_c_bank_payment.companycode'/$metadata</String>
+                    </Collection>
+                </Annotation>
                 <Annotation Term="SAP__common.Label" String="Company Code"/>
             </Annotations>
             <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTType/AccountingDocument">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_journalentrystdvh/0001;ps='srvd-zsgi_fi_bank_payment-0001';va='com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.et-zsgi_fi_c_bank_payment.accountingdocument'/$metadata</String>
+                    </Collection>
+                </Annotation>
                 <Annotation Term="SAP__common.Label" String="Journal Entry"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=FARP_BELNR_D"/>
             </Annotations>
@@ -186,7 +197,36 @@
             </Annotations>
             <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTType/Supplier">
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_supplier_vh/0001;ps='srvd-zsgi_fi_bank_payment-0001';va='com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.et-zsgi_fi_c_bank_payment.supplier'/$metadata</String>
+                    </Collection>
+                </Annotation>
                 <Annotation Term="SAP__common.Label" String="Supplier"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTType/HouseBank">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_housebankaccountlinkage/0001;ps='srvd-zsgi_fi_bank_payment-0001';va='com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.et-zsgi_fi_c_bank_payment.housebank'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Label" String="House Bank"/>
+                <Annotation Term="SAP__common.Heading" String="House Bk"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Short Key for a House Bank"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=HBKID"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTType/HouseBankAccount">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_housebankaccountlinkage/0001;ps='srvd-zsgi_fi_bank_payment-0001';va='com.sap.gateway.srvd.zsgi_fi_bank_payment.v0001.et-zsgi_fi_c_bank_payment.housebankaccount'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Label" String="Account ID"/>
+                <Annotation Term="SAP__common.Heading" String="Acct ID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="ID for Account Details"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=HKTID"/>
             </Annotations>
             <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTType/DocumentReferenceID">
                 <Annotation Term="SAP__core.Computed"/>
@@ -219,22 +259,19 @@
                 <Annotation Term="SAP__UI.HiddenFilter"/>
                 <Annotation Term="SAP__UI.Hidden"/>
             </Annotations>
-            <Annotations Target="SAP__self.printPdf(SAP__self.ZSGI_FI_C_BANK_PAYMENTType)/HouseBank">
+            <Annotations Target="SAP__self.printPdf(Collection(SAP__self.ZSGI_FI_C_BANK_PAYMENTType))/HouseBank">
                 <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="House Bank"/>
                 <Annotation Term="SAP__common.Heading" String="House Bk"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Short Key for a House Bank"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=HBKID"/>
             </Annotations>
-            <Annotations Target="SAP__self.printPdf(SAP__self.ZSGI_FI_C_BANK_PAYMENTType)/HouseBankAccount">
+            <Annotations Target="SAP__self.printPdf(Collection(SAP__self.ZSGI_FI_C_BANK_PAYMENTType))/HouseBankAccount">
                 <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Account ID"/>
                 <Annotation Term="SAP__common.Heading" String="Acct ID"/>
                 <Annotation Term="SAP__common.QuickInfo" String="ID for Account Details"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=HKTID"/>
-            </Annotations>
-            <Annotations Target="SAP__self.printPdf(SAP__self.ZSGI_FI_C_BANK_PAYMENTType)">
-                <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/printPdf"/>
             </Annotations>
             <Annotations Target="SAP__self.printQueue(SAP__self.ZSGI_FI_C_BANK_PAYMENTType)">
                 <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/printQueue"/>
@@ -397,11 +434,6 @@
                 <Annotation Term="SAP__common.QuickInfo" String="Name of Financial Institution"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=BANKA"/>
             </Annotations>
-            <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTOperationControl/printPdf">
-                <Annotation Term="SAP__common.Label" String="Dyn. Action Control"/>
-                <Annotation Term="SAP__common.Heading" String="Dynamic Action Control"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Action Property"/>
-            </Annotations>
             <Annotations Target="SAP__self.ZSGI_FI_C_BANK_PAYMENTOperationControl/printQueue">
                 <Annotation Term="SAP__common.Label" String="Dyn. Action Control"/>
                 <Annotation Term="SAP__common.Heading" String="Dynamic Action Control"/>
@@ -412,7 +444,7 @@
                 <Annotation Term="SAP__common.Heading" String="Dynamic Method Control"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Dynamic Method Property"/>
             </Annotations>
-            <Annotations Target="SAP__self.printPdf(SAP__self.ZSGI_FI_C_BANK_PAYMENTType)/Erdat">
+            <Annotations Target="SAP__self.printPdf(Collection(SAP__self.ZSGI_FI_C_BANK_PAYMENTType))/Erdat">
                 <Annotation Term="SAP__common.Label" String="Created On"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Record Creation Date"/>
             </Annotations>
