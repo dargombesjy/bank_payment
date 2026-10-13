@@ -42,10 +42,21 @@
                             <PropertyValue Property="Value" Path="DocumentDate"/>
                         </Record>
                         <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="InvoiceReference"/>
+                            <PropertyValue Property="Label" String="InvoiceReference"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="InvoiceReferenceFiscalYear"/>
+                            <PropertyValue Property="Label" String="InvoiceReferenceFiscalYear"/>
+                        </Record>
+                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="PostingDate"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="DocumentReferenceID"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="SpecialGLCode"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="AmountInCompanyCodeCurrency"/>

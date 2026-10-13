@@ -108,15 +108,29 @@ sap.ui.define(
                     if (oContext && oContext.getObject) {
                         // Data already loaded
                         const oData = oContext.getObject();
-                        var sUrl = "/sap/opu/odata4/sap/zsgi_sb_fi_f_bank_payment/srvd_a2x/sap/zsgi_sd_fi_f_bank_payment/0001";
-                        sUrl += "/ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='";
-                        sUrl += oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form"
+                        // var sUrl = "/sap/opu/odata4/sap/zsgi_sb_fi_f_bank_payment/srvd_a2x/sap/zsgi_sd_fi_f_bank_payment/0001";
+                        // sUrl += "/ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='";
+                        // sUrl += oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form"
+                        
+                        const pdfModel = oView.getModel("pdfService");
+                        var sPdfUrl = pdfModel.getServiceUrl();
+                        sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form";
+                        
                         const URLHelper = mLibrary.URLHelper;
-                        if (sUrl) {
-                            URLHelper.redirect(sUrl, true);
+                        if (sPdfUrl) {
+                            URLHelper.redirect(sPdfUrl, true);
                         } else {
                             MessageToast.show("Print failed");
                         }
+
+                        // const pdfContext = pdfModel.bindContext("/ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form");
+                        // pdfContext.requestObject().then(function (oPdfData) {
+                        //     // Handle the PDF data here
+                        //     console.log("PDF Data:", oPdfData);
+                        // }).catch(function (oError) {
+                        //     MessageToast.show("Failed to retrieve PDF data: " + oError.message);
+                        //     console.error(oError);
+                        // });
 
                         // const oReturned = await oContext.requestObject();
                     }

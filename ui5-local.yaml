@@ -44,6 +44,10 @@ server:
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
             generateMockData: true
+          - urlPath: /sap/opu/odata4/sap/zsgi_sb_fi_f_bank_payment/srvd_a2x/sap/zsgi_sd_fi_f_bank_payment/0001
+            metadataPath: ./webapp/localService/pdfService/metadata.xml
+            mockdataPath: ./webapp/localService/pdfService/data
+            generateMockData: true
         annotations: []
 builder:
   resources:
