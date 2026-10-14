@@ -4,9 +4,10 @@ sap.ui.define(
         "sap/ui/core/Fragment",
         "sap/m/library",
         "sap/m/MessageToast",
-        "sap/ui/comp/valuehelpdialog/ValueHelpDialog"
+        "sap/m/MessageBox"
+        // "sap/ui/comp/valuehelpdialog/ValueHelpDialog"
     ],
-    function (PageController, Fragment, mLibrary, MessageToast, ValueHelpDialog) {
+    function (PageController, Fragment, mLibrary, MessageToast, MessageBox) {
         'use strict';
 
         return PageController.extend('zfibankpayment.ext.view.Main', {
@@ -64,9 +65,12 @@ sap.ui.define(
                 this._pDialog.then(function (oDialog) { oDialog.close(); });
                 const oTable = this.getView().byId("Table1");
                 const aContexts = oTable.getSelectedContexts();
-                if (!aContexts.length) {
-                    MessageToast.show("Select a row");
-                    return;
+                // if (!aContexts.length) {
+                //     MessageToast.show("Select a row");
+                //     return;
+                // }
+                if (!this._validateSelection(aContexts)) {
+                    return; // Exit if validation fails
                 }
 
                 const oView = this.getView();
@@ -210,6 +214,25 @@ sap.ui.define(
                     oDatePicker.setValueState("None");
                 }
             },
+
+            _validateSelection: function (aContexts) {
+                if (!aContexts.length) {
+                    MessageToast.show("Select a row");
+                    return false;
+                }
+                var sAccountingDocument = ""; //aContexts[0].getObject().AccountingDocument;
+                for (var i = 0; i < aContexts.length; i++) {
+                    var oData = aContexts[i].getObject();
+                    if (i === 0) {
+                        sAccountingDocument = oData.AccountingDocument;
+                    } else if (oData.AccountingDocument !== sAccountingDocument) {
+                        MessageBox.error("All selected rows must have the same Accounting Document.");
+                        return false;
+                    }
+                }
+
+                return true;
+            }
 
         });
     }
