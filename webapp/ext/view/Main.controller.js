@@ -111,17 +111,63 @@ sap.ui.define(
                         // var sUrl = "/sap/opu/odata4/sap/zsgi_sb_fi_f_bank_payment/srvd_a2x/sap/zsgi_sd_fi_f_bank_payment/0001";
                         // sUrl += "/ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='";
                         // sUrl += oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form"
-                        
+
                         const pdfModel = oView.getModel("pdfService");
                         var sPdfUrl = pdfModel.getServiceUrl();
                         sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form";
-                        
-                        const URLHelper = mLibrary.URLHelper;
-                        if (sPdfUrl) {
-                            URLHelper.redirect(sPdfUrl, true);
-                        } else {
-                            MessageToast.show("Print failed");
+
+                        try {
+                            const oResponse = await fetch(sPdfUrl, {
+                                method: "GET",
+                                credentials: "same-origin",
+                                headers: {
+                                    "Accept": "application/pdf"
+                                }
+                            });
+
+                            if (!oResponse.ok) {
+                                const sError = await oResponse.text();
+                                throw new Error(
+                                    `PDF download failed: HTTP ${oResponse.status}. ${sError}`
+                                );
+                            }
+                            const sContentType = oResponse.headers.get("Content-Type") || "";
+                            if (!sContentType.includes("application/pdf") &&
+                                !sContentType.includes("application/octet-stream")
+                            ) {
+                                throw new Error(
+                                    `Expected PDF, received: ${sContentType || "unknown content type"}`
+                                );
+                            }
+
+                            const oBlob = await oResponse.blob();
+                            const sObjectUrl = URL.createObjectURL(oBlob);
+
+                            const oLink = document.createElement("a");
+                            oLink.href = sObjectUrl;
+                            oLink.download = "bank_payment.pdf";
+
+                            document.body.appendChild(oLink);
+                            oLink.click();
+                            oLink.remove();
+
+                            // Release the temporary object URL after the download starts
+                            setTimeout(() => URL.revokeObjectURL(sObjectUrl), 1000);
+
+                        } catch (oError) {
+                            console.error("PDF download error:", oError);
+
+                            sap.m.MessageBox.error(
+                                "Unable to download PDF: " + oError.message
+                            );
                         }
+
+                        // const URLHelper = mLibrary.URLHelper;
+                        // if (sPdfUrl) {
+                        //     URLHelper.redirect(sPdfUrl, true);
+                        // } else {
+                        //     MessageToast.show("Print failed");
+                        // }
 
                         // const pdfContext = pdfModel.bindContext("/ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form");
                         // pdfContext.requestObject().then(function (oPdfData) {
