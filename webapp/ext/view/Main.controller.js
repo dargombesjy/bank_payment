@@ -46,7 +46,11 @@ sap.ui.define(
             //
             //  }
 
-            onPrintPdf: function () {
+            onPrintPdf: function (oEvent) {
+    
+                if (!this._validateSelection(oEvent.getParameter("contexts"))) {
+                    return; // Exit if validation fails
+                }
                 const oView = this.getView();
                 if (!this._pDialog) {
                     this._pDialog = Fragment.load({
@@ -65,14 +69,6 @@ sap.ui.define(
                 this._pDialog.then(function (oDialog) { oDialog.close(); });
                 const oTable = this.getView().byId("Table1");
                 const aContexts = oTable.getSelectedContexts();
-                // if (!aContexts.length) {
-                //     MessageToast.show("Select a row");
-                //     return;
-                // }
-                if (!this._validateSelection(aContexts)) {
-                    return; // Exit if validation fails
-                }
-
                 const oView = this.getView();
                 const oPopupModel = oView.getModel("popupModel");
 
@@ -104,8 +100,6 @@ sap.ui.define(
                         // invocationGrouping: false
                     });
 
-                    // aResult is an array of results (one per context)
-                    // console.log(aResults);
                     const oFirst = Array.isArray(aResults) ? aResults[0] : aResults;
                     const oContext = oFirst && oFirst.value ? oFirst.value : oFirst;
 
@@ -118,12 +112,13 @@ sap.ui.define(
 
                         const pdfModel = oView.getModel("pdfService");
                         var sPdfUrl = pdfModel.getServiceUrl();
-                        sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form";
+                        // sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form";
+                        sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(Supplier='" + oData.Supplier + "')/Form";
 
                         try {
                             const oResponse = await fetch(sPdfUrl, {
                                 method: "GET",
-                                credentials: "same-origin",
+                                credentials: "include", // Include cookies for authentication if needed
                                 headers: {
                                     "Accept": "application/pdf"
                                 }
@@ -172,25 +167,8 @@ sap.ui.define(
                         // } else {
                         //     MessageToast.show("Print failed");
                         // }
-
-                        // const pdfContext = pdfModel.bindContext("/ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form");
-                        // pdfContext.requestObject().then(function (oPdfData) {
-                        //     // Handle the PDF data here
-                        //     console.log("PDF Data:", oPdfData);
-                        // }).catch(function (oError) {
-                        //     MessageToast.show("Failed to retrieve PDF data: " + oError.message);
-                        //     console.error(oError);
-                        // });
-
                         // const oReturned = await oContext.requestObject();
                     }
-
-                    oPopupModel.setData({
-                        erdat: "",
-                        houseBank: "",
-                        houseBankAccount: "",
-                        zcount: ""
-                    });
 
                 } catch (oError) {
                     // Action failed or the parameter dialog was cancelled
@@ -220,13 +198,13 @@ sap.ui.define(
                     MessageToast.show("Select a row");
                     return false;
                 }
-                var sAccountingDocument = ""; //aContexts[0].getObject().AccountingDocument;
+                var sSupplier = ""; //aContexts[0].getObject().Supplier;
                 for (var i = 0; i < aContexts.length; i++) {
                     var oData = aContexts[i].getObject();
                     if (i === 0) {
-                        sAccountingDocument = oData.AccountingDocument;
-                    } else if (oData.AccountingDocument !== sAccountingDocument) {
-                        MessageBox.error("All selected rows must have the same Accounting Document.");
+                        sSupplier = oData.Supplier;
+                    } else if (oData.Supplier !== sSupplier) {
+                        MessageBox.error("All selected rows must have the same Supplier.");
                         return false;
                     }
                 }
