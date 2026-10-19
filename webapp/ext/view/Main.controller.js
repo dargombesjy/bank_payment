@@ -47,7 +47,7 @@ sap.ui.define(
             //  }
 
             onPrintPdf: function (oEvent) {
-    
+
                 if (!this._validateSelection(oEvent.getParameter("contexts"))) {
                     return; // Exit if validation fails
                 }
@@ -115,12 +115,18 @@ sap.ui.define(
                         // sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form";
                         sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(Supplier='" + oData.Supplier + "')/Form";
 
+                        const username = 'ZSGI_CU_FI_ODATA_V4';
+                        const password = 'ShoetownFinance!234567890';
+
+                        // Encode credentials to Base64 (Browser environment)
+                        const credentials = btoa(`${username}:${password}`);
                         try {
                             const oResponse = await fetch(sPdfUrl, {
                                 method: "GET",
-                                credentials: "include", // Include cookies for authentication if needed
+                                // credentials: "include", // Include cookies for authentication if needed
                                 headers: {
-                                    "Accept": "application/pdf"
+                                    "Accept": "application/pdf",
+                                    "Authorization": `Basic ${credentials}`
                                 }
                             });
 
