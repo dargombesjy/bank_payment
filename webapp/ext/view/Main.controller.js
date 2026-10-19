@@ -115,57 +115,62 @@ sap.ui.define(
                         // sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(CompanyCode='" + oData.CompanyCode + "',AccountingDocument='" + oData.AccountingDocument + "',FiscalYear='" + oData.FiscalYear + "')/Form";
                         sPdfUrl += "ZSGI_FI_F_BANK_PAYMENT(Supplier='" + oData.Supplier + "')/Form";
 
-                        const username = 'ZSGI_CU_FI_ODATA_V4';
-                        const password = 'ShoetownFinance!234567890';
+                        // try {
+                        //     const oResponse = await fetch(sPdfUrl, {
+                        //         method: "GET",
+                        //         credentials: "include", // Include cookies for authentication if needed
+                        //         headers: {
+                        //             "Accept": "application/pdf",
+                        //         }
+                        //     });
 
-                        // Encode credentials to Base64 (Browser environment)
-                        const credentials = btoa(`${username}:${password}`);
-                        try {
-                            const oResponse = await fetch(sPdfUrl, {
-                                method: "GET",
-                                // credentials: "include", // Include cookies for authentication if needed
-                                headers: {
-                                    "Accept": "application/pdf",
-                                    "Authorization": `Basic ${credentials}`
-                                }
-                            });
+                        //     if (!oResponse.ok) {
+                        //         const sError = await oResponse.text();
+                        //         throw new Error(
+                        //             `PDF download failed: HTTP ${oResponse.status}. ${sError}`
+                        //         );
+                        //     }
+                        //     const sContentType = oResponse.headers.get("Content-Type") || "";
+                        //     if (!sContentType.includes("application/pdf") &&
+                        //         !sContentType.includes("application/octet-stream")
+                        //     ) {
+                        //         throw new Error(
+                        //             `Expected PDF, received: ${sContentType || "unknown content type"}`
+                        //         );
+                        //     }
 
-                            if (!oResponse.ok) {
-                                const sError = await oResponse.text();
-                                throw new Error(
-                                    `PDF download failed: HTTP ${oResponse.status}. ${sError}`
-                                );
-                            }
-                            const sContentType = oResponse.headers.get("Content-Type") || "";
-                            if (!sContentType.includes("application/pdf") &&
-                                !sContentType.includes("application/octet-stream")
-                            ) {
-                                throw new Error(
-                                    `Expected PDF, received: ${sContentType || "unknown content type"}`
-                                );
-                            }
+                        //     const oBlob = await oResponse.blob();
+                        //     const sObjectUrl = URL.createObjectURL(oBlob);
 
-                            const oBlob = await oResponse.blob();
-                            const sObjectUrl = URL.createObjectURL(oBlob);
+                        //     const oLink = document.createElement("a");
+                        //     oLink.href = sObjectUrl;
+                        //     oLink.download = "bank_payment.pdf";
 
-                            const oLink = document.createElement("a");
-                            oLink.href = sObjectUrl;
-                            oLink.download = "bank_payment.pdf";
+                        //     document.body.appendChild(oLink);
+                        //     oLink.click();
+                        //     oLink.remove();
 
-                            document.body.appendChild(oLink);
-                            oLink.click();
-                            oLink.remove();
+                        //     // Release the temporary object URL after the download starts
+                        //     setTimeout(() => URL.revokeObjectURL(sObjectUrl), 1000);
 
-                            // Release the temporary object URL after the download starts
-                            setTimeout(() => URL.revokeObjectURL(sObjectUrl), 1000);
+                        // } catch (oError) {
+                        //     console.error("PDF download error:", oError);
 
-                        } catch (oError) {
-                            console.error("PDF download error:", oError);
+                        //     sap.m.MessageBox.error(
+                        //         "Unable to download PDF: " + oError.message
+                        //     );
+                        // }
 
-                            sap.m.MessageBox.error(
-                                "Unable to download PDF: " + oError.message
-                            );
-                        }
+                        const oLink = document.createElement("a");
+                        oLink.href = sPdfUrl;
+                        oLink.download = "bank_payment.pdf";
+
+                        document.body.appendChild(oLink);
+                        oLink.click();
+                        oLink.remove();
+
+                        // Release the temporary object URL after the download starts
+                        setTimeout(() => URL.revokeObjectURL(sObjectUrl), 1000);
 
                         // const URLHelper = mLibrary.URLHelper;
                         // if (sPdfUrl) {
