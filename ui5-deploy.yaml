@@ -21,7 +21,7 @@ builder:
           name: zfibankpayment
           description: FI Bank Payment Form
           package: ZABAP_FI
-          transport: H5YK901858  #H5YK901766 #H5YK901662  #H5YK901378
+          transport: H5YK901860 #H5YK901858  #H5YK901766 #H5YK901662  #H5YK901378
         exclude:
           - /test/
           - /localService/
